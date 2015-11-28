@@ -1,0 +1,6 @@
+# Ignore Eclipse
+.checkstyle
+.project
+.classpath
+.settings/
+bin/
