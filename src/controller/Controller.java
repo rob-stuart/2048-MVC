@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import model.Model;
@@ -22,8 +21,7 @@ public class Controller implements ControllerInterface {
     /**
      * The method by which the game of 2048 is started.
      * 
-     * @param args
-     *            Input arguments (not used).
+     * @param args Input arguments (not used).
      */
     public static void main(String[] args) {
 	new Controller();
@@ -33,7 +31,6 @@ public class Controller implements ControllerInterface {
      * Instantiates the model and view.
      */
     public Controller() {
-	moves = new LinkedList<Tile>();
 	model = new Model();
 	moves = model.startGame();
 	view = new BasicGUI(model.getWidth(), model.getHeight(), this);
@@ -44,7 +41,6 @@ public class Controller implements ControllerInterface {
     @Override
     public void restartGame(int newWidth, int newHeight) {
 	alreadyWon = false;
-	moves.clear();
 	moves = model.restartGame(newWidth, newHeight);
 	view.resetBoard(model.getWidth(), model.getHeight());
 	view.addTiles(moves);
@@ -53,7 +49,6 @@ public class Controller implements ControllerInterface {
 
     @Override
     public void makeMove(Direction d) {
-	moves.clear();
 	moves = model.makeMove(d);
 	if (moves.isEmpty()) {
 	    if (model.isGameOver()) view.showLoss();
@@ -65,6 +60,14 @@ public class Controller implements ControllerInterface {
 		view.showWin();
 	    } else if (model.isGameOver()) view.showLoss();
 	}
+    }
+
+    @Override
+    public void endGame() {
+	model.endGame();
+	model = null;
+	moves = null;
+	view = null;
     }
 
 }

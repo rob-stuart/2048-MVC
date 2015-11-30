@@ -192,6 +192,7 @@ public class BasicGUI extends JFrame implements ViewInterface {
 	setResizable(true);
 	setLocationRelativeTo(null); // center on the screen
 	setVisible(true);
+	addWindowListener(listener);
     }
 
     private void buildBoardAndSetSizes(int numTilesX, int numTilesY) {

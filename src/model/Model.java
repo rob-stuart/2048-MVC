@@ -15,8 +15,13 @@ public class Model implements ModelInterface {
 
     @Override
     public List<Tile> startGame() {
-	board = new Board();
-	return Rules.startGame(board, Rules.DFLT_WIDTH, Rules.DFLT_HEIGHT);
+	board = SaverLoader.loadGame();
+	if (board == null) {
+	    board = new Board();
+	    return Rules.startGame(board, Rules.DFLT_WIDTH, Rules.DFLT_HEIGHT);
+	} else {
+	    return board.getAllTiles();
+	}
     }
 
     @Override
@@ -40,6 +45,12 @@ public class Model implements ModelInterface {
 	    moves = Rules.restartGame(board, Rules.DFLT_WIDTH, Rules.DFLT_HEIGHT);
 	}
 	return moves;
+    }
+
+    @Override
+    public void endGame() {
+	SaverLoader.saveGame(board);
+	board = null;
     }
 
     @Override

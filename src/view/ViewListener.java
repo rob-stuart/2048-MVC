@@ -9,6 +9,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import controller.Direction;
  * 
  * @author Robert Stuart
  */
-class ViewListener extends KeyAdapter implements MouseListener, ActionListener, ItemListener {
+class ViewListener extends KeyAdapter implements MouseListener, ActionListener, ItemListener, WindowListener {
     private ControllerInterface controller;
     private Point drag_start;
     private int nextBoardWidth;
@@ -36,20 +38,18 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
     /**
      * Constructs this ViewListener and directs it to send all pertinent user input to the controller provided.
      * 
-     * @param controller
-     *            The controller that this ViewListener will send all pertinent user actions to.
-     * @throws NullPointerException
-     *             If controller == null.
+     * @param controller The controller that this ViewListener will send all pertinent user actions to.
+     * @throws NullPointerException If controller == null.
      */
     protected ViewListener(ControllerInterface controller) throws NullPointerException {
 	this.controller = controller;
     }
 
     /**
-     * Captures keyPressed events from the environment, interprets the events as movement directions or as a restart command, if possible, then communicates them to the controller.
+     * Captures keyPressed events from the environment, interprets the events as movement directions or as a restart command, if possible, then communicates them to
+     * the controller.
      * 
-     * @param e
-     *            The key event captured from the keyboard.
+     * @param e The key event captured from the keyboard.
      * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
      */
     @Override
@@ -66,8 +66,7 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
     /**
      * Captures mousePressed events from the environment and saves its location on the screen.
      * 
-     * @param e
-     *            The mousePressed event captured from the mouse.
+     * @param e The mousePressed event captured from the mouse.
      * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
      */
     @Override
@@ -76,11 +75,10 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
     }
 
     /**
-     * Captures mouseReleased events from the environment then communicates the direction moved between the last mousePressed event and this event to the controller, unless the distance between the two events
-     * is <= 20 px.
+     * Captures mouseReleased events from the environment then communicates the direction moved between the last mousePressed event and this event to the controller,
+     * unless the distance between the two events is <= 20 px.
      * 
-     * @param e
-     *            The mouseReleased event captured from the mouse.
+     * @param e The mouseReleased event captured from the mouse.
      * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
      */
     @Override
@@ -102,8 +100,7 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
     /**
      * Captures ActionEvents and sends their commands to the controller, if valid.
      * 
-     * @param e
-     *            A captured ActionEvent
+     * @param e A captured ActionEvent
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
     @Override
@@ -115,8 +112,7 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
     /**
      * Captures itemStateChanged events from JComboBoxes and saves their values until the next restart game event.
      * 
-     * @param e
-     *            A captured ItemEvent.
+     * @param e A captured ItemEvent.
      * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
      */
     @Override
@@ -132,34 +128,57 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 	}
     }
 
+    @Override
+    public void windowClosing(WindowEvent arg0) {
+	controller.endGame();
+    }
+
     /**
-     * Captures mouseClicked events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary information.
+     * Captures mouseClicked events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
+     * information.
      * 
-     * @param e
-     *            The mouseClicked event captured from the mouse.
+     * @param e The mouseClicked event captured from the mouse.
      * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
      */
     @Override
     public void mouseClicked(MouseEvent e) {}
 
     /**
-     * Captures mouseEntered events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary information.
+     * Captures mouseEntered events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
+     * information.
      * 
-     * @param e
-     *            The mouseEntered event captured from the mouse.
+     * @param e The mouseEntered event captured from the mouse.
      * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
      */
     @Override
     public void mouseEntered(MouseEvent e) {}
 
     /**
-     * Captures mouseExited events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary information.
+     * Captures mouseExited events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
+     * information.
      * 
-     * @param e
-     *            The mouseExited event captured from the mouse.
+     * @param e The mouseExited event captured from the mouse.
      * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
      */
     @Override
     public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void windowActivated(WindowEvent arg0) {}
+
+    @Override
+    public void windowClosed(WindowEvent arg0) {}
+
+    @Override
+    public void windowDeactivated(WindowEvent arg0) {}
+
+    @Override
+    public void windowDeiconified(WindowEvent arg0) {}
+
+    @Override
+    public void windowIconified(WindowEvent arg0) {}
+
+    @Override
+    public void windowOpened(WindowEvent arg0) {}
 
 }

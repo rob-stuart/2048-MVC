@@ -3,8 +3,9 @@ package controller;
 import java.awt.Point;
 
 /**
- * Groups information regarding the past and present position and value for this Tile as well as if the Tile was formed from merging Tiles, or if the Tile is to be deleted. Convention assumed: The point
- * information is to be in (x,y) coordinates where (0,0) refers to the top-left cell, while (1,2) would be one cell down and two cells to the right.
+ * Groups information regarding the past and present position and value for this Tile as well as if the Tile was formed from merging Tiles, or if the Tile is to be
+ * deleted. Convention assumed: The point information is to be in (x,y) coordinates where (0,0) refers to the top-left cell, while (1,2) would be one cell down and
+ * two cells to the right.
  * 
  * @author Robert Stuart
  */
@@ -16,10 +17,8 @@ public class Tile {
     /**
      * Constructs this tile from the given point and value.
      * 
-     * @param loc
-     *            The location of this Tile.
-     * @param val
-     *            The value of this Tile.
+     * @param loc The location of this Tile.
+     * @param val The value of this Tile.
      */
     public Tile(Point loc, int val) {
 	curLoc = loc;
@@ -68,8 +67,7 @@ public class Tile {
     /**
      * Updates the current location of this Tile to the one provided.
      * 
-     * @param to
-     *            The new location for this Tile.
+     * @param to The new location for this Tile.
      */
     public void move(Point to) {
 	prvLoc = curLoc;
@@ -80,10 +78,8 @@ public class Tile {
     /**
      * Updates the current location and value of this Tile to the information provided and marks the Tile as being merged.
      * 
-     * @param to
-     *            The new location of this Tile.
-     * @param val
-     *            The new value of this Tile.
+     * @param to The new location of this Tile.
+     * @param val The new value of this Tile.
      */
     public void merge(Point to, int val) {
 	prvLoc = curLoc;
@@ -125,6 +121,18 @@ public class Tile {
      */
     public boolean isDeleted() {
 	return deleted;
+    }
+
+    @Override
+    public String toString() {
+	StringBuilder str = new StringBuilder();
+	str.append("CurLoc: " + curLoc + " ");
+	str.append("curVal: " + curVal + " ");
+	str.append("PrvLoc: " + prvLoc + " ");
+	str.append("prvVal: " + prvVal + " ");
+	str.append("isDeleted: " + deleted + " ");
+	str.append("isMerged: " + merged);
+	return str.toString() + "\n";
     }
 
     @Override

@@ -17,10 +17,8 @@ public interface ModelInterface {
     /**
      * Starts a new game with the given dimensions.
      * 
-     * @param width
-     *            The width of the board to be made.
-     * @param height
-     *            The height of the board to be made.
+     * @param width The width of the board to be made.
+     * @param height The height of the board to be made.
      * @return A list of tiles that were added to the board.
      * 
      */
@@ -29,20 +27,20 @@ public interface ModelInterface {
     /**
      * Ends the current game and starts a new one with the given dimensions.
      * 
-     * @param width
-     *            The width of the board to be made.
-     * @param height
-     *            The height of the board to be made.
+     * @param width The width of the board to be made.
+     * @param height The height of the board to be made.
      * @return A list of tiles that were added to the new board.
      */
     public List<Tile> restartGame(int width, int height);
 
+    public void endGame();
+
     /**
      * Shifts all tiles on the board in the given direction.
      * 
-     * @param d
-     *            The direction to shift the tiles on the board.
-     * @return The past and present positions and values of all tiles that were affected by the move as well as the tile that was added to the board (only added after a successful move).
+     * @param d The direction to shift the tiles on the board.
+     * @return The past and present positions and values of all tiles that were affected by the move as well as the tile that was added to the board (only added
+     *         after a successful move).
      */
     public List<Tile> makeMove(Direction d);
 
@@ -61,7 +59,8 @@ public interface ModelInterface {
     public int getHighScore();
 
     /**
-     * Indicates whether this game has been won or not. Note that to win the game the '2048' tile must be created, however the user can continue to play after that point.
+     * Indicates whether this game has been won or not. Note that to win the game the '2048' tile must be created, however the user can continue to play after that
+     * point.
      * 
      * @return true If this game has been won, otherwise false.
      */
@@ -77,8 +76,5 @@ public interface ModelInterface {
     public int getWidth();
 
     public int getHeight();
-
-    // public void loadGame(File file) throws Exception;
-    // public void saveGame(File file) throws Exception;
 
 }
