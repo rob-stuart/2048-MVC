@@ -6,7 +6,6 @@ import java.awt.Point;
  * Groups information regarding the past and present position and value for this Tile as well as if the Tile was formed from merging Tiles, or if the Tile is to be
  * deleted. Convention assumed: The point information is to be in (x,y) coordinates where (0,0) refers to the top-left cell, while (1,2) would be one cell down and
  * two cells to the right.
- * 
  * @author Robert Stuart
  */
 public class Tile {
@@ -16,7 +15,6 @@ public class Tile {
 
     /**
      * Constructs this tile from the given point and value.
-     * 
      * @param loc The location of this Tile.
      * @param val The value of this Tile.
      */
@@ -30,7 +28,6 @@ public class Tile {
 
     /**
      * Returns the current location of this Tile.
-     * 
      * @return The current location of this Tile.
      */
     public Point getCurLoc() {
@@ -39,7 +36,6 @@ public class Tile {
 
     /**
      * Returns the current value of this Tile.
-     * 
      * @return The current value of this Tile.
      */
     public int getCurVal() {
@@ -48,7 +44,6 @@ public class Tile {
 
     /**
      * Returns the previous location of this Tile.
-     * 
      * @return The previous location of this Tile
      */
     public Point getPrvLoc() {
@@ -57,7 +52,6 @@ public class Tile {
 
     /**
      * Returns the previous value of this Tile.
-     * 
      * @return The previous value of this Tile
      */
     public int getPrvVal() {
@@ -66,7 +60,6 @@ public class Tile {
 
     /**
      * Updates the current location of this Tile to the one provided.
-     * 
      * @param to The new location for this Tile.
      */
     public void move(Point to) {
@@ -77,7 +70,6 @@ public class Tile {
 
     /**
      * Updates the current location and value of this Tile to the information provided and marks the Tile as being merged.
-     * 
      * @param to The new location of this Tile.
      * @param val The new value of this Tile.
      */
@@ -107,7 +99,6 @@ public class Tile {
 
     /**
      * Returns whether or not this Tile has been marked as merged or not.
-     * 
      * @return True if this Tile has been marked as merged, false otherwise.
      */
     public boolean isMerged() {
@@ -116,23 +107,10 @@ public class Tile {
 
     /**
      * Returns whether or not this Tile has been marked as deleted or not.
-     * 
      * @return True if this Tile has been marked as deleted, false otherwise.
      */
     public boolean isDeleted() {
 	return deleted;
-    }
-
-    @Override
-    public String toString() {
-	StringBuilder str = new StringBuilder();
-	str.append("CurLoc: " + curLoc + " ");
-	str.append("curVal: " + curVal + " ");
-	str.append("PrvLoc: " + prvLoc + " ");
-	str.append("prvVal: " + prvVal + " ");
-	str.append("isDeleted: " + deleted + " ");
-	str.append("isMerged: " + merged);
-	return str.toString() + "\n";
     }
 
     @Override

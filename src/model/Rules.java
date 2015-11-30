@@ -84,9 +84,9 @@ class Rules {
 			next = new Point(farthest.x + vector.x, farthest.y + vector.y);
 		    } while (board.isContained(next) && board.valueAt(next) == 0);
 		    if (board.isContained(next) && board.valueAt(current) == board.valueAt(next) && canMerge(board, moves, next)) {// merge current & next position
-			Tile aMove = new Tile(current, board.valueAt(current)); // set initial position
-			aMove.merge(next, board.valueAt(current) * 2); // set final position and value
-			deleteMergeInto(board, moves, next); // mark Tile being merged into as being deleted
+			Tile aMove = new Tile(current, board.valueAt(current));	// set initial position
+			aMove.merge(next, board.valueAt(current) * 2);	// set final position and value
+			deleteMergeInto(board, moves, next);	// mark Tile being merged into as being deleted
 			moves.add(aMove);
 			board.setCell(next, 2 * board.valueAt(current));
 			board.setScore(board.getScore() + board.valueAt(next));

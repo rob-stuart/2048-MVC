@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 
 /**
  * Controls the look of the tiles.
- * 
  * @author Robert Stuart
  */
 class ViewTile extends JLabel {
@@ -21,13 +20,9 @@ class ViewTile extends JLabel {
 
     /**
      * Constructs this tile with the given value at the given location; thereby deciding such things as this tile's color.
-     * 
-     * @param val
-     *            The value that this tile will be.
-     * @param p
-     *            The point of this tile's top left corner.
-     * @throws IllegalArgumentException
-     *             If p.x < 0 or p.y <0
+     * @param val The value that this tile will be.
+     * @param p The point of this tile's top left corner.
+     * @throws IllegalArgumentException If p.x < 0 or p.y <0
      */
     protected ViewTile(int val, Point p) throws IllegalArgumentException {
 	super(val == 0 ? "" : String.valueOf(val), CENTER);
@@ -36,14 +31,13 @@ class ViewTile extends JLabel {
 	setOpaque(true);
 	setSize(actSize);
 	if (font == null) font = (new ClearSansLoader()).importFont("Bold");
-	setStyle(val); // sets the color and fontsize for this tile based on its value
+	setStyle(val);	// sets the color and fontsize for this tile based on its value
 	setAlignmentX(CENTER_ALIGNMENT);
 	setAlignmentY(CENTER_ALIGNMENT);
     }
 
     /**
      * Returns the preferred size of ViewTile.
-     * 
      * @return The preferred size of ViewTile.
      */
     protected static Dimension getPrefSize() {
@@ -52,9 +46,7 @@ class ViewTile extends JLabel {
 
     /**
      * Sets the actual width of ViewTile.
-     * 
-     * @param width
-     *            The value the width of ViewTile will be set to.
+     * @param width The value the width of ViewTile will be set to.
      */
     protected static void setActualWidth(int width) {
 	actSize.width = width;
@@ -62,9 +54,7 @@ class ViewTile extends JLabel {
 
     /**
      * Sets the actual height of ViewTile.
-     * 
-     * @param height
-     *            The value the height of ViewTile will be set to.
+     * @param height The value the height of ViewTile will be set to.
      */
     protected static void setActualHeight(int height) {
 	actSize.height = height;
@@ -72,7 +62,6 @@ class ViewTile extends JLabel {
 
     /**
      * Returns the actual width of the ViewTile.
-     * 
      * @return The actual width of the ViewTile.
      */
     protected static int getActualHeight() {
@@ -81,7 +70,6 @@ class ViewTile extends JLabel {
 
     /**
      * Returns the actual height of the ViewTile.
-     * 
      * @return The actual height of the ViewTile.
      */
     protected static int getActualWidth() {
@@ -90,11 +78,8 @@ class ViewTile extends JLabel {
 
     /**
      * Moves this tile by the given amounts.
-     * 
-     * @param dx
-     *            The amount to move this tile in the x direction (horizontal shift).
-     * @param dy
-     *            The amount to move this tile in the y direction (vertical shift).
+     * @param dx The amount to move this tile in the x direction (horizontal shift).
+     * @param dy The amount to move this tile in the y direction (vertical shift).
      */
     protected void moveTileBy(int dx, int dy) {
 	setLocation(getLocation().x + dx, getLocation().y + dy);
@@ -102,9 +87,7 @@ class ViewTile extends JLabel {
 
     /**
      * Changes this ViewTiles value to the one provided.
-     * 
-     * @param val
-     *            The value that this ViewTiles value will be updated to.
+     * @param val The value that this ViewTiles value will be updated to.
      */
     protected void setTileVal(int val) {
 	setText(val == 0 ? "" : String.valueOf(val));
@@ -187,9 +170,7 @@ class ViewTile extends JLabel {
 
     /**
      * Repaints this component.
-     * 
-     * @param g
-     *            The Graphics object to protect.
+     * @param g The Graphics object to protect.
      */
     @Override
     protected void paintComponent(Graphics g) {

@@ -22,7 +22,6 @@ import controller.Tile;
 
 /**
  * A visualization of the game.
- * 
  * @author Robert Stuart
  */
 public class BasicGUI extends JFrame implements ViewInterface {
@@ -46,17 +45,11 @@ public class BasicGUI extends JFrame implements ViewInterface {
 
     /**
      * Creates a GUI for a game with a given number of horizontal and vertical tiles for a given controller.
-     * 
-     * @param numTilesX
-     *            The number of horizontal tiles.
-     * @param numTilesY
-     *            The number of vertical tiles.
-     * @param controller
-     *            The controller instance controlling this game.
-     * @throws IllegalArgumentException
-     *             If numTilesX < 4 or numTilesX > 20 or numTilesY < 4 or numTilesY > 20.
-     * @throws NullPointerException
-     *             If controller == null.
+     * @param numTilesX The number of horizontal tiles.
+     * @param numTilesY The number of vertical tiles.
+     * @param controller The controller instance controlling this game.
+     * @throws IllegalArgumentException If numTilesX < 4 or numTilesX > 20 or numTilesY < 4 or numTilesY > 20.
+     * @throws NullPointerException If controller == null.
      */
     public BasicGUI(int numTilesX, int numTilesY, Controller controller) throws IllegalArgumentException, NullPointerException {
 	super(gameName);
@@ -183,6 +176,7 @@ public class BasicGUI extends JFrame implements ViewInterface {
 
 	addKeyListener(listener);
 	addMouseListener(listener);
+	addWindowListener(listener);
 	setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 	add(box);
 	getContentPane().setBackground(backGroundColor);
@@ -192,7 +186,6 @@ public class BasicGUI extends JFrame implements ViewInterface {
 	setResizable(true);
 	setLocationRelativeTo(null); // center on the screen
 	setVisible(true);
-	addWindowListener(listener);
     }
 
     private void buildBoardAndSetSizes(int numTilesX, int numTilesY) {
@@ -210,8 +203,8 @@ public class BasicGUI extends JFrame implements ViewInterface {
 	float h = vw.getPreferredSpan(javax.swing.text.View.Y_AXIS);
 	below.setPreferredSize(new Dimension((int) Math.ceil(w), (int) Math.ceil(h)));
 	below.setMaximumSize(below.getPreferredSize());
-	int maxBoardHeight = scrnSize.height - heading.getPreferredSize().height - above.getPreferredSize().height - comboBoxes.getPreferredSize().height - below.getPreferredSize().height - 4
-		* containerSpacing - taskBarSize;
+	int maxBoardHeight = scrnSize.height - heading.getPreferredSize().height - above.getPreferredSize().height - comboBoxes.getPreferredSize().height
+		- below.getPreferredSize().height - 4 * containerSpacing - taskBarSize;
 	board.setVerticalConstraints(numTilesY, maxBoardHeight);
 	board.createGrid();
     }

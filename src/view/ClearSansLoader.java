@@ -8,7 +8,6 @@ import java.io.InputStream;
 
 /**
  * Imports the variations of the Clear-Sans font.
- * 
  * @author Robert Stuart
  */
 class ClearSansLoader {
@@ -16,10 +15,10 @@ class ClearSansLoader {
     protected Font importFont(String fontType) {
 	Font font;
 	try {
-	    InputStream is = getClass().getClassLoader().getResourceAsStream("res/clear-sans/ClearSans-" + fontType + ".ttf");
-	    if (is == null) { // null when working in eclipse...
-		font = Font.createFont(Font.TRUETYPE_FONT, new File("res/clear-sans/ClearSans-" + fontType + ".ttf"));
-	    } else { // not null when exported to a .jar
+	    InputStream is = getClass().getClassLoader().getResourceAsStream("resources/clear-sans/ClearSans-" + fontType + ".ttf");
+	    if (is == null) {	// null when working in eclipse...
+		font = Font.createFont(Font.TRUETYPE_FONT, new File("resources/clear-sans/ClearSans-" + fontType + ".ttf"));
+	    } else {	// not null when exported to a .jar
 		font = Font.createFont(Font.TRUETYPE_FONT, is);
 		is.close();
 	    }

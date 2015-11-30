@@ -13,7 +13,6 @@ import controller.Tile;
 
 /**
  * Controls the look of the board, where all tiles are placed, and how they are moved.
- * 
  * @author Robert Stuart
  */
 class ViewBoard extends JLayeredPane {
@@ -26,13 +25,9 @@ class ViewBoard extends JLayeredPane {
 
     /**
      * Constructs this board with the given dimensions.
-     * 
-     * @param numTilesX
-     *            The number of horizontal tiles.
-     * @param numTilesY
-     *            The number of vertical tiles.
-     * @param maxSize
-     *            The maximum size that the board can be.
+     * @param numTilesX The number of horizontal tiles.
+     * @param numTilesY The number of vertical tiles.
+     * @param maxSize The maximum size that the board can be.
      */
     protected ViewBoard() {
 	setBackground(new Color(187, 173, 160));
@@ -87,11 +82,8 @@ class ViewBoard extends JLayeredPane {
 
     /**
      * Removes all tiles from this board, then re-makes it with the new dimensions.
-     * 
-     * @param numTilesX
-     *            The number of horizontal tiles.
-     * @param numTilesY
-     *            The number of vertical tiles.
+     * @param numTilesX The number of horizontal tiles.
+     * @param numTilesY The number of vertical tiles.
      */
     protected void resetBoard() {
 	removeAll();
@@ -100,9 +92,7 @@ class ViewBoard extends JLayeredPane {
 
     /**
      * Moves the given list of tile actions; moving, adding, and removing them as dictated.
-     * 
-     * @param moves
-     *            A list of tile actions for this board.
+     * @param moves A list of tile actions for this board.
      */
     protected void moveTiles(List<Tile> moves) {
 	for (Tile aMove : moves) {
@@ -112,7 +102,7 @@ class ViewBoard extends JLayeredPane {
 		else remove(getTileAt(aMove.getPrvLoc())); // A merged into tile
 	    } else {
 		if (aMove.getPrvLoc() == null) add(new ViewTile(aMove.getCurVal(), coord2Point(aMove.getCurLoc())), TILELAYER); // A newly added tile
-		else { // A tile that has moved and potentially merged into another tile
+		else {	// A tile that has moved and potentially merged into another tile
 		    ViewTile tile = getTileAt(aMove.getPrvLoc());
 		    if (tile != null) {
 			Point startPnt = coord2Point(aMove.getPrvLoc());
@@ -136,9 +126,7 @@ class ViewBoard extends JLayeredPane {
 
     /**
      * Adds the given list of tiles to this board.
-     * 
-     * @param newTiles
-     *            A list of tiles to be added to the board.
+     * @param newTiles A list of tiles to be added to the board.
      */
     protected void addTiles(List<Tile> newTiles) {
 	for (Tile aTile : newTiles)
@@ -154,9 +142,7 @@ class ViewBoard extends JLayeredPane {
 
     /**
      * Repaints this component.
-     * 
-     * @param g
-     *            The Graphics object to protect.
+     * @param g The Graphics object to protect.
      */
     @Override
     protected void paintComponent(Graphics g) {

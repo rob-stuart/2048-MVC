@@ -49,7 +49,12 @@ public class Model implements ModelInterface {
 
     @Override
     public void endGame() {
-	SaverLoader.saveGame(board);
+	if (board.isGameOver()) {
+	    SaverLoader.removeSave();
+	} else {
+	    SaverLoader.saveGame(board);
+	}
+
 	board = null;
     }
 

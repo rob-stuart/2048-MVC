@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 
 class SaverLoader {
     private static final File file = new File(System.getProperty("user.home") + File.separator + "2048.sav");
@@ -41,5 +42,13 @@ class SaverLoader {
 	}
 	return board;
     }
-    
+
+    protected static void removeSave() {
+	try {
+	    Files.deleteIfExists(file.toPath());
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+
 }

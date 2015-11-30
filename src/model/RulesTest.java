@@ -17,7 +17,6 @@ import controller.Tile;
 
 /**
  * Unit tests using JUnit to test the {@link Rules.java rules} of the game.
- * 
  * @author Robert Stuart
  */
 public class RulesTest {
@@ -490,7 +489,7 @@ public class RulesTest {
 	int tmpScore = rand.nextInt(100000);// random large number
 	board.setScore(tmpScore);
 	board.setHighScore(tmpScore);
-	ansBoard.setScore(tmpScore + 2 * smallNum); // 2 cells of value 4 will be combined on board thus increasing score by 8
+	ansBoard.setScore(tmpScore + 2 * smallNum);  // 2 cells of value 4 will be combined on board thus increasing score by 8
 	ansBoard.setHighScore(tmpScore + 2 * smallNum);
 	ansBoard.setGameOver(true);
 	boolean altCell;
@@ -505,8 +504,8 @@ public class RulesTest {
 	    altCol = !altCol;
 	}
 	/*
-	 * Make 2 cells in bottom right have the same value (4) so that a shift up will combine them, a new tile will be added to extreme bottom right which will be either 2 or 4, which can't combine with
-	 * anything and thus ends the game
+	 * Make 2 cells in bottom right have the same value (4) so that a shift up will combine them, a new tile will be added to extreme bottom right which will be
+	 * either 2 or 4, which can't combine with anything and thus ends the game
 	 */
 	Point pnt1 = new Point(width - 1, height - 2);
 	Point pnt2 = new Point(width - 1, height - 1);
@@ -514,8 +513,8 @@ public class RulesTest {
 	board.setCell(pnt2, smallNum);
 	moves = Rules.makeMove(board, Direction.UP);
 	/*
-	 * The value of tile added to the board is unknown so we set the ansBoard val to 0 which indicates to compareBoardsAfterMove() that a value of 2 or 4 may be inserted on the board at that point and that
-	 * it should be ignored in the comparison
+	 * The value of tile added to the board is unknown so we set the ansBoard val to 0 which indicates to compareBoardsAfterMove() that a value of 2 or 4 may be
+	 * inserted on the board at that point and that it should be ignored in the comparison
 	 */
 	ansBoard.setCell(pnt1, 2 * smallNum);
 	ansBoard.setCell(pnt2, 0);
@@ -548,7 +547,7 @@ public class RulesTest {
     private void testTileValues(Tile tile, boolean isNew, int curVal, Point curLoc, int prvVal, Point prvLoc, boolean isMerged, boolean isDeleted) {
 	if (isNew) {
 	    assertTrue("Incorrect curVal for a New Tile", tile.getCurVal() == 2 || tile.getCurVal() == 4);
-	    assertFalse("Incorrect curLoc", tile.getCurLoc().equals(curLoc)); // enforce where a new tile cant be
+	    assertFalse("Incorrect curLoc", tile.getCurLoc().equals(curLoc));	// enforce where a new tile cant be
 	    assertTrue("New Tile shouldnt have a prvVal", tile.getPrvVal() == 0);
 	    assertTrue("New Tile shouldnt have a prvLoc", tile.getPrvLoc() == null);
 	    assertTrue("Incorrect isMerged state for a New Tile", tile.isMerged() == false);

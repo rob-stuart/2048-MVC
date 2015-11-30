@@ -133,6 +133,11 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 	controller.endGame();
     }
 
+    @Override
+    public void windowClosed(WindowEvent arg0) {
+	controller.endGame();
+    }
+
     /**
      * Captures mouseClicked events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
      * information.
@@ -165,9 +170,6 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 
     @Override
     public void windowActivated(WindowEvent arg0) {}
-
-    @Override
-    public void windowClosed(WindowEvent arg0) {}
 
     @Override
     public void windowDeactivated(WindowEvent arg0) {}
