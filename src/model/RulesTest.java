@@ -13,15 +13,14 @@ import java.util.Random;
 import org.junit.Test;
 
 import controller.Direction;
-import controller.Tile;
+import controller.ATileMove;
 
 /**
  * Unit tests using JUnit to test the {@link Rules.java rules} of the game.
- * @author Robert Stuart
  */
 public class RulesTest {
     private Board board, ansBoard;
-    private List<Tile> moves;
+    private List<ATileMove> moves;
     private Random rand = new Random();
     private final int width = 21, height = 21;
 
@@ -42,7 +41,7 @@ public class RulesTest {
 		    if (moves.size() < Rules.DFLT_STARTNUM) fail("less than 2 tiles were added to the board");
 		    else if (moves.size() > Rules.DFLT_STARTNUM) fail("More than 2 tiles were added to the board");
 		    testList.clear();
-		    for (Tile aMove : moves) {
+		    for (ATileMove aMove : moves) {
 			testTileValues(aMove, true, 0, null, 0, null, false, false);
 			testList.add(aMove.getCurLoc());
 		    }
@@ -73,7 +72,7 @@ public class RulesTest {
 		    if (moves.size() < Rules.DFLT_STARTNUM) fail("less than 2 tiles were added to the board");
 		    else if (moves.size() > Rules.DFLT_STARTNUM) fail("More than 2 tiles were added to the board");
 		    testList.clear();
-		    for (Tile aMove : moves) {
+		    for (ATileMove aMove : moves) {
 			testTileValues(aMove, true, 0, null, 0, null, false, false);
 			testList.add(aMove.getCurLoc());
 		    }
@@ -90,7 +89,7 @@ public class RulesTest {
 	ansBoard = new Board();
 	int i;
 	Point moveFromPnt = null, moveToPnt = null;
-	Tile tile = null;
+	ATileMove tile = null;
 	for (int x = 0; x < width; x++)
 	    for (int y = 0; y < height; y++) {
 		board.setSize(width, height);
@@ -105,7 +104,7 @@ public class RulesTest {
 		if (x == moveToPnt.x) assertTrue("No move made, but a tile was still added", moves.isEmpty());
 		else {
 		    assertTrue("Valid move made, thus list should have 2 items", moves.size() == 2);
-		    tile = new Tile(moveFromPnt, i);
+		    tile = new ATileMove(moveFromPnt, i);
 		    tile.move(moveToPnt);
 		    assertTrue("Moved tile should have been in the list", moves.contains(tile));
 		    moves.remove(tile);
@@ -120,7 +119,7 @@ public class RulesTest {
 	ansBoard = new Board();
 	int i;
 	Point moveFromPnt = null, moveToPnt = null;
-	Tile tile = null;
+	ATileMove tile = null;
 	for (int x = 0; x < width; x++)
 	    for (int y = 0; y < height; y++) {
 		board.setSize(width, height);
@@ -135,7 +134,7 @@ public class RulesTest {
 		if (x == moveToPnt.x) assertTrue("No move made, but a tile was still added", moves.isEmpty());
 		else {
 		    assertTrue("Valid move made, thus list should have 2 items", moves.size() == 2);
-		    tile = new Tile(moveFromPnt, i);
+		    tile = new ATileMove(moveFromPnt, i);
 		    tile.move(moveToPnt);
 		    assertTrue("Moved tile should have been in the list", moves.contains(tile));
 		    moves.remove(tile);
@@ -150,7 +149,7 @@ public class RulesTest {
 	ansBoard = new Board();
 	int i;
 	Point moveFromPnt = null, moveToPnt = null;
-	Tile tile = null;
+	ATileMove tile = null;
 	for (int x = 0; x < width; x++)
 	    for (int y = 0; y < height; y++) {
 		board.setSize(width, height);
@@ -165,7 +164,7 @@ public class RulesTest {
 		if (y == moveToPnt.y) assertTrue("No move made, but a tile was still added", moves.isEmpty());
 		else {
 		    assertTrue("Valid move made, thus list should have 2 items", moves.size() == 2);
-		    tile = new Tile(moveFromPnt, i);
+		    tile = new ATileMove(moveFromPnt, i);
 		    tile.move(moveToPnt);
 		    assertTrue("Moved tile should have been in the list", moves.contains(tile));
 		    moves.remove(tile);
@@ -180,7 +179,7 @@ public class RulesTest {
 	ansBoard = new Board();
 	int i;
 	Point moveFromPnt = null, moveToPnt = null;
-	Tile tile = null;
+	ATileMove tile = null;
 	for (int x = 0; x < width; x++)
 	    for (int y = 0; y < height; y++) {
 		board.setSize(width, height);
@@ -195,7 +194,7 @@ public class RulesTest {
 		if (y == moveToPnt.y) assertTrue("No move made, but a tile was still added", moves.isEmpty());
 		else {
 		    assertTrue("Valid move made, thus list should have 2 items", moves.size() == 2);
-		    tile = new Tile(moveFromPnt, i);
+		    tile = new ATileMove(moveFromPnt, i);
 		    tile.move(moveToPnt);
 		    assertTrue("Moved tile should have been in the list", moves.contains(tile));
 		    moves.remove(tile);
@@ -210,7 +209,7 @@ public class RulesTest {
 	board = new Board();
 	ansBoard = new Board();
 	Point fromPnt1 = null, fromPnt2 = null, moveToPnt = null;
-	Tile tile1 = null, tile2 = null;
+	ATileMove tile1 = null, tile2 = null;
 	ansBoard.setScore(mergeVal);
 	ansBoard.setHighScore(mergeVal);
 	for (int x = 0; x < width; x++)
@@ -230,8 +229,8 @@ public class RulesTest {
 		ansBoard.setCell(moveToPnt, mergeVal);
 		compareBoardsAfterMove(true);
 		assertTrue("Incorrect number of tiles, 2 moved and 1 added = 3", moves.size() == 3);
-		tile1 = new Tile(fromPnt1, initVal);
-		tile2 = new Tile(fromPnt2, initVal);
+		tile1 = new ATileMove(fromPnt1, initVal);
+		tile2 = new ATileMove(fromPnt2, initVal);
 		if (fromPnt1.x > fromPnt2.x) {
 		    if (fromPnt1.x != moveToPnt.x) tile1.move(moveToPnt);
 		    tile1.delete();
@@ -255,7 +254,7 @@ public class RulesTest {
 	board = new Board();
 	ansBoard = new Board();
 	Point fromPnt1 = null, fromPnt2 = null, moveToPnt = null;
-	Tile tile1 = null, tile2 = null;
+	ATileMove tile1 = null, tile2 = null;
 	ansBoard.setScore(mergeVal);
 	ansBoard.setHighScore(mergeVal);
 	for (int x = 0; x < width; x++)
@@ -275,8 +274,8 @@ public class RulesTest {
 		ansBoard.setCell(moveToPnt, mergeVal);
 		compareBoardsAfterMove(true);
 		assertTrue("Incorrect number of tiles, 2 moved and 1 added = 3", moves.size() == 3);
-		tile1 = new Tile(fromPnt1, initVal);
-		tile2 = new Tile(fromPnt2, initVal);
+		tile1 = new ATileMove(fromPnt1, initVal);
+		tile2 = new ATileMove(fromPnt2, initVal);
 		if (fromPnt1.x < fromPnt2.x) {
 		    if (fromPnt1.x != moveToPnt.x) tile1.move(moveToPnt);
 		    tile1.delete();
@@ -300,7 +299,7 @@ public class RulesTest {
 	board = new Board();
 	ansBoard = new Board();
 	Point fromPnt1 = null, fromPnt2 = null, moveToPnt = null;
-	Tile tile1 = null, tile2 = null;
+	ATileMove tile1 = null, tile2 = null;
 	ansBoard.setScore(mergeVal);
 	ansBoard.setHighScore(mergeVal);
 	for (int x = 0; x < width; x++)
@@ -320,8 +319,8 @@ public class RulesTest {
 		ansBoard.setCell(moveToPnt, mergeVal);
 		compareBoardsAfterMove(true);
 		assertTrue("Incorrect number of tiles, 2 moved and 1 added = 3", moves.size() == 3);
-		tile1 = new Tile(fromPnt1, initVal);
-		tile2 = new Tile(fromPnt2, initVal);
+		tile1 = new ATileMove(fromPnt1, initVal);
+		tile2 = new ATileMove(fromPnt2, initVal);
 		if (fromPnt1.y > fromPnt2.y) {
 		    if (fromPnt1.y != moveToPnt.y) tile1.move(moveToPnt);
 		    tile1.delete();
@@ -345,7 +344,7 @@ public class RulesTest {
 	board = new Board();
 	ansBoard = new Board();
 	Point fromPnt1 = null, fromPnt2 = null, moveToPnt = null;
-	Tile tile1 = null, tile2 = null;
+	ATileMove tile1 = null, tile2 = null;
 	ansBoard.setScore(mergeVal);
 	ansBoard.setHighScore(mergeVal);
 	for (int x = 0; x < width; x++)
@@ -365,8 +364,8 @@ public class RulesTest {
 		ansBoard.setCell(moveToPnt, mergeVal);
 		compareBoardsAfterMove(true);
 		assertTrue("Incorrect number of tiles, 2 moved and 1 added = 3", moves.size() == 3);
-		tile1 = new Tile(fromPnt1, initVal);
-		tile2 = new Tile(fromPnt2, initVal);
+		tile1 = new ATileMove(fromPnt1, initVal);
+		tile2 = new ATileMove(fromPnt2, initVal);
 		if (fromPnt1.y > fromPnt2.y) {
 		    if (fromPnt1.y != moveToPnt.y) tile1.move(moveToPnt);
 		    tile1.delete();
@@ -461,8 +460,8 @@ public class RulesTest {
 	ansBoard.setCell(moveToPnt, Rules.DFLT_WINVALUE);
 	compareBoardsAfterMove(true);
 	assertTrue("After move list should have size = 3", moves.size() == 3);
-	Tile tile1 = new Tile(pnt1, Rules.DFLT_WINVALUE / 2);
-	Tile tile2 = new Tile(pnt2, Rules.DFLT_WINVALUE / 2);
+	ATileMove tile1 = new ATileMove(pnt1, Rules.DFLT_WINVALUE / 2);
+	ATileMove tile2 = new ATileMove(pnt2, Rules.DFLT_WINVALUE / 2);
 	if (pnt1.y > pnt2.y) {
 	    if (pnt1.y != moveToPnt.y) tile1.move(moveToPnt);
 	    tile1.delete();
@@ -520,15 +519,15 @@ public class RulesTest {
 	ansBoard.setCell(pnt2, 0);
 	compareBoardsAfterMove(true);
 	assertTrue("list should only contain 3 items after the move", moves.size() == 3);
-	Tile tile1 = new Tile(pnt1, smallNum);
-	Tile tile2 = new Tile(pnt2, smallNum);
+	ATileMove tile1 = new ATileMove(pnt1, smallNum);
+	ATileMove tile2 = new ATileMove(pnt2, smallNum);
 	tile1.delete();
 	tile2.merge(pnt1, 2 * smallNum);
 	assertTrue("list should have contained this tile", moves.contains(tile1));
 	moves.remove(tile1);
 	assertTrue("list should have contained this tile", moves.contains(tile2));
 	moves.remove(tile2);
-	Tile newTile = moves.get(0);
+	ATileMove newTile = moves.get(0);
 	assertTrue("Newly placed tile should have only had a single possible location", newTile.getCurLoc().equals(pnt2));
 	assertTrue("Incorrect value for a new tile", newTile.getCurVal() == 2 || newTile.getCurVal() == 4);
     }
@@ -544,7 +543,7 @@ public class RulesTest {
 		if (rand.nextBoolean() == true) board.setCell(new Point(x, y), (int) Math.pow(2, rand.nextInt(30)));
     }
 
-    private void testTileValues(Tile tile, boolean isNew, int curVal, Point curLoc, int prvVal, Point prvLoc, boolean isMerged, boolean isDeleted) {
+    private void testTileValues(ATileMove tile, boolean isNew, int curVal, Point curLoc, int prvVal, Point prvLoc, boolean isMerged, boolean isDeleted) {
 	if (isNew) {
 	    assertTrue("Incorrect curVal for a New Tile", tile.getCurVal() == 2 || tile.getCurVal() == 4);
 	    assertFalse("Incorrect curLoc", tile.getCurLoc().equals(curLoc));	// enforce where a new tile cant be

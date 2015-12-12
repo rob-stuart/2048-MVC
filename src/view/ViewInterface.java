@@ -2,11 +2,10 @@ package view;
 
 import java.util.List;
 
-import controller.Tile;
+import controller.ATileMove;
 
 /**
  * An interface describing tasks that the View shall be responsible for.
- * @author Robert Stuart
  */
 public interface ViewInterface {
     /**
@@ -21,13 +20,13 @@ public interface ViewInterface {
      * Moves the given tiles on the board.
      * @param moves A list of all tiles to be moved; includes their past and present positions and values.
      */
-    public void moveTiles(List<Tile> moves);
+    public void moveTiles(List<ATileMove> moves);
 
     /**
      * Adds the given tiles to the board.
      * @param newTiles A list of all tiles to be added to the board; includes their positions and values.
      */
-    public void addTiles(List<Tile> newTiles);
+    public void addTiles(List<ATileMove> newTiles);
 
     /**
      * Displays to the user that this game has been won.

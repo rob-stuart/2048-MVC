@@ -8,10 +8,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 
-class SaverLoader {
+/**
+ * All static methods required to save, load, and delete board state information.
+ */
+public class SaverLoader {
     private static final File file = new File(System.getProperty("user.home") + File.separator + "2048.sav");
 
-    protected static void saveGame(Board board) {
+    /**
+     * Doesn't allow anyone outside of this class to instantiate Rules.
+     */
+    private SaverLoader() {}
+
+    /**
+     * Saves the given board to memory.
+     * @param board The board to be saved.
+     */
+    public static void saveGame(Board board) {
 	FileOutputStream fos;
 	ObjectOutputStream oos;
 	try {
@@ -25,7 +37,11 @@ class SaverLoader {
 	}
     }
 
-    protected static Board loadGame() {
+    /**
+     * Loads a board from memory.
+     * @return The board retrieved from memory, null if no valid board save was found.
+     */
+    public static Board loadGame() {
 	FileInputStream fos;
 	ObjectInputStream oos;
 	Board board = null;
@@ -43,7 +59,10 @@ class SaverLoader {
 	return board;
     }
 
-    protected static void removeSave() {
+    /**
+     * Removes any board saves from memory.
+     */
+    public static void removeSave() {
 	try {
 	    Files.deleteIfExists(file.toPath());
 	} catch (IOException e) {

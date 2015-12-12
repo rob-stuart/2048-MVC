@@ -9,13 +9,12 @@ import java.util.List;
 
 import javax.swing.JLayeredPane;
 
-import controller.Tile;
+import controller.ATileMove;
 
 /**
  * Controls the look of the board, where all tiles are placed, and how they are moved.
- * @author Robert Stuart
  */
-class ViewBoard extends JLayeredPane {
+public class ViewBoard extends JLayeredPane {
     private static final long serialVersionUID = 7704761091317274700L;
     private static final double borderWidthRatio = 6.88; // b.c. LoLz
     private static final Integer GRIDLAYER = new Integer(1), TILELAYER = new Integer(2);
@@ -29,12 +28,18 @@ class ViewBoard extends JLayeredPane {
      * @param numTilesY The number of vertical tiles.
      * @param maxSize The maximum size that the board can be.
      */
-    protected ViewBoard() {
+    public ViewBoard() {
 	setBackground(new Color(187, 173, 160));
 	setOpaque(true);
     }
 
-    protected int setHorizontalConstraints(int numTilesX, int maxBoardWidth) {
+    /**
+     * Sets the maximum width this board can be as well as sets the width the tiles must be to fit the constraints.
+     * @param numTilesX The number of tiles that must fit within the given width.
+     * @param maxBoardWidth The maximum width this board can be.
+     * @return The actual board width. This will always be <= the given maxBoardWidth
+     */
+    public int setHorizontalConstraints(int numTilesX, int maxBoardWidth) {
 	boardHeight = 0; // force user to call setVerticalConstraints after setHorizontalConstraints
 	this.numTilesX = numTilesX;
 	int prefTileBorderH = (int) (ViewTile.getPrefSize().width / borderWidthRatio);
@@ -53,7 +58,13 @@ class ViewBoard extends JLayeredPane {
 	return boardWidth;
     }
 
-    protected int setVerticalConstraints(int numTilesY, int maxBoardHeight) {
+    /**
+     * Sets the maximum height this board can be as well as sets the height the tiles must be to fit the constraints.
+     * @param numTilesY The number of tiles that must fit within the given height.
+     * @param maxBoardHeight The maximum height this board can be.
+     * @return The actual board height. This will always be <= the given maxBoardHeight
+     */
+    public int setVerticalConstraints(int numTilesY, int maxBoardHeight) {
 	if (boardWidth == 0) return 0; // force user to call setVerticalConstraints after setHorizontalConstraints
 	this.numTilesY = numTilesY;
 	int prefTileBorderV = (int) (ViewTile.getPrefSize().height / borderWidthRatio);
@@ -72,7 +83,11 @@ class ViewBoard extends JLayeredPane {
 	return boardHeight;
     }
 
-    protected boolean createGrid() {
+    /**
+     * Creates the grid pattern on this board.
+     * @return true if the grid can be creates, false otherwise.
+     */
+    public boolean createGrid() {
 	if (boardWidth == 0 || boardHeight == 0) return false;
 	for (int x = 0; x < numTilesX; x++)
 	    for (int y = 0; y < numTilesY; y++)
@@ -85,7 +100,7 @@ class ViewBoard extends JLayeredPane {
      * @param numTilesX The number of horizontal tiles.
      * @param numTilesY The number of vertical tiles.
      */
-    protected void resetBoard() {
+    public void resetBoard() {
 	removeAll();
 	boardHeight = boardWidth = 0;
     }
@@ -94,8 +109,8 @@ class ViewBoard extends JLayeredPane {
      * Moves the given list of tile actions; moving, adding, and removing them as dictated.
      * @param moves A list of tile actions for this board.
      */
-    protected void moveTiles(List<Tile> moves) {
-	for (Tile aMove : moves) {
+    public void moveTiles(List<ATileMove> moves) {
+	for (ATileMove aMove : moves) {
 	    if (aMove == null) continue;
 	    if (aMove.isDeleted()) {
 		if (aMove.getPrvLoc() == null) remove(getTileAt(aMove.getCurLoc())); // A tile that didn't move but was merged into
@@ -128,8 +143,8 @@ class ViewBoard extends JLayeredPane {
      * Adds the given list of tiles to this board.
      * @param newTiles A list of tiles to be added to the board.
      */
-    protected void addTiles(List<Tile> newTiles) {
-	for (Tile aTile : newTiles)
+    public void addTiles(List<ATileMove> newTiles) {
+	for (ATileMove aTile : newTiles)
 	    add(new ViewTile(aTile.getCurVal(), coord2Point(aTile.getCurLoc())), TILELAYER);
 	repaint();
     }

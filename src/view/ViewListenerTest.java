@@ -24,6 +24,9 @@ import org.junit.Test;
 import controller.ControllerInterface;
 import controller.Direction;
 
+/**
+ * Unit tests using JUnit to test the {@link ViewListener.java User Input Listener} of the game.
+ */
 public class ViewListenerTest {
     private static FakeController cont;
     private static MyFrame myFrame;
@@ -118,10 +121,10 @@ public class ViewListenerTest {
 	rel = new Point(press.x + 1, press.y + 2);
 	inputAllowed = false;
 	expectedResponse = null;
-	myFrame.doMouseEvent(new MouseEvent(myFrame, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, press.x, press.y, press.x, press.y, 1, false,
-		MouseEvent.BUTTON1));
-	myFrame.doMouseEvent(new MouseEvent(myFrame, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, rel.x, rel.y, rel.x, rel.y, 1, false,
-		MouseEvent.BUTTON1));
+	myFrame.doMouseEvent(
+		new MouseEvent(myFrame, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, press.x, press.y, press.x, press.y, 1, false, MouseEvent.BUTTON1));
+	myFrame.doMouseEvent(
+		new MouseEvent(myFrame, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, rel.x, rel.y, rel.x, rel.y, 1, false, MouseEvent.BUTTON1));
     }
 
     @Test
@@ -179,8 +182,8 @@ public class ViewListenerTest {
 	for (int modifierCodePress : new int[] { 0, KeyEvent.SHIFT_DOWN_MASK, KeyEvent.ALT_DOWN_MASK, KeyEvent.CTRL_DOWN_MASK }) {
 	    for (int button : new int[] { MouseEvent.BUTTON1, MouseEvent.BUTTON2, MouseEvent.BUTTON3 }) {
 		press = new Point(rand.nextInt(scrSize.width + 1), rand.nextInt(scrSize.height + 1));
-		myFrame.doMouseEvent(new MouseEvent(myFrame, mouseEvent, System.currentTimeMillis(), modifierCodePress, press.x, press.y, press.x, press.y, 1,
-			false, button));
+		myFrame.doMouseEvent(
+			new MouseEvent(myFrame, mouseEvent, System.currentTimeMillis(), modifierCodePress, press.x, press.y, press.x, press.y, 1, false, button));
 	    }
 	}
     }

@@ -8,19 +8,17 @@ import view.BasicGUI;
 import view.ViewInterface;
 
 /**
- * The main component of the 2048 Game, this communicates user actions to the model then updates the view based on any changes/information from the model.
- * 
- * @author Robert Stuart
+ * The entry point for the 2048 game, it contains the main method of the 2048 Game. This communicates user actions to the model then updates the view based on any
+ * changes/information from the model.
  */
 public class Controller implements ControllerInterface {
     private ViewInterface view;
     private ModelInterface model;
-    private List<Tile> moves;
+    private List<ATileMove> moves;
     private boolean alreadyWon = false;
 
     /**
      * The method by which the game of 2048 is started.
-     * 
      * @param args Input arguments (not used).
      */
     public static void main(String[] args) {
@@ -28,7 +26,7 @@ public class Controller implements ControllerInterface {
     }
 
     /**
-     * Instantiates the model and view.
+     * Instantiates a model and a view.
      */
     public Controller() {
 	model = new Model();

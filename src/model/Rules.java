@@ -5,14 +5,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 import controller.Direction;
-import controller.Tile;
+import controller.ATileMove;
 
-class Rules {
+/**
+ * All static methods required to manipulate any valid board according to the Rules of 2048.
+ */
+public class Rules {
 
-    protected final static int DFLT_WIDTH = 4, DFLT_HEIGHT = 4;
-    protected final static int DFLT_STARTNUM = 2, DFLT_WINVALUE = 2048;
+    public final static int DFLT_WIDTH = 4, DFLT_HEIGHT = 4;
+    public final static int DFLT_STARTNUM = 2, DFLT_WINVALUE = 2048;
 
-    protected static List<Tile> startGame(Board board, int width, int height) {
+    /**
+     * Doesn't allow anyone outside of this class to instantiate Rules.
+     */
+    private Rules() {}
+
+    /**
+     * Modifies the given board to have the given dimensions and then starts a new game on that board, returning the tiles that were added to it.
+     * @param board The board that the Rules are being used to modify.
+     * @param width The width of the board to be made.
+     * @param height The height of the board to be made.
+     * @return A list of all tile on the board.
+     */
+    public static List<ATileMove> startGame(Board board, int width, int height) {
 	if (width < DFLT_WIDTH || height < DFLT_HEIGHT) throw new IllegalArgumentException();
 	board.setSize(width, height);
 	board.setScore(0);
@@ -22,7 +37,15 @@ class Rules {
 	return addStartTiles(board);
     }
 
-    protected static List<Tile> restartGame(Board board, int width, int height) {
+    /**
+     * Modifies the given board to have the given dimensions and then restarts a game on that board, returns the tiles that were added to it. Note this does not
+     * reset the highScore value of the board as the startGame method does.
+     * @param board The board that the Rules are being used to modify.
+     * @param width The width of the board to be made.
+     * @param height The height of the board to be made.
+     * @return A list of all tile on the board.
+     */
+    public static List<ATileMove> restartGame(Board board, int width, int height) {
 	if (width < DFLT_WIDTH || height < DFLT_HEIGHT) throw new IllegalArgumentException();
 	board.setSize(width, height);
 	board.setScore(0);
@@ -31,21 +54,21 @@ class Rules {
 	return addStartTiles(board);
     }
 
-    private static List<Tile> addStartTiles(Board board) {
-	List<Tile> additions = new LinkedList<Tile>();
+    private static List<ATileMove> addStartTiles(Board board) {
+	List<ATileMove> additions = new LinkedList<ATileMove>();
 	for (int i = 0; i < DFLT_STARTNUM; i++) {
-	    Tile tmp = addRandomTile(board);
+	    ATileMove tmp = addRandomTile(board);
 	    if (tmp != null) additions.add(tmp);
 	}
 	return additions;
     }
 
-    private static Tile addRandomTile(Board board) {
-	Tile tile = null;
+    private static ATileMove addRandomTile(Board board) {
+	ATileMove tile = null;
 	if (cellsAvailable(board)) {
 	    Point cell = randomAvailCell(board);
 	    board.setCell(cell, Math.random() < 0.9 ? 2 : 4);
-	    tile = new Tile(cell, board.valueAt(cell));
+	    tile = new ATileMove(cell, board.valueAt(cell));
 	}
 	return tile;
     }
@@ -69,8 +92,15 @@ class Rules {
 	return true;
     }
 
-    protected static List<Tile> makeMove(Board board, Direction d) {
-	LinkedList<Tile> moves = new LinkedList<Tile>();
+    /**
+     * Shifts all tiles possible on the board in the given direction.
+     * @param board The board that the Rules are shifting the tiles on.
+     * @param d The direction to shift the tiles on the board.
+     * @return The past and present positions and values of all tiles that were affected by the move as well as the tile that was added to the board (only added
+     *         after a successful move).
+     */
+    public static List<ATileMove> makeMove(Board board, Direction d) {
+	LinkedList<ATileMove> moves = new LinkedList<ATileMove>();
 	Point vector = getVector(d);
 	int[] xTraversal = getXTraversal(board, vector);
 	int[] yTraversal = getYTraversal(board, vector);
@@ -84,7 +114,7 @@ class Rules {
 			next = new Point(farthest.x + vector.x, farthest.y + vector.y);
 		    } while (board.isContained(next) && board.valueAt(next) == 0);
 		    if (board.isContained(next) && board.valueAt(current) == board.valueAt(next) && canMerge(board, moves, next)) {// merge current & next position
-			Tile aMove = new Tile(current, board.valueAt(current));	// set initial position
+			ATileMove aMove = new ATileMove(current, board.valueAt(current));	// set initial position
 			aMove.merge(next, board.valueAt(current) * 2);	// set final position and value
 			deleteMergeInto(board, moves, next);	// mark Tile being merged into as being deleted
 			moves.add(aMove);
@@ -94,7 +124,7 @@ class Rules {
 			board.setCell(current, 0);
 			if (board.valueAt(next) == DFLT_WINVALUE) board.setGameWon(true);
 		    } else if (current != farthest) {// no merge, just move current to the farthest position. Do nothing if this Tile cannot be moved.
-			Tile aMove = new Tile(current, board.valueAt(current));
+			ATileMove aMove = new ATileMove(current, board.valueAt(current));
 			aMove.move(farthest);
 			moves.add(aMove);
 			board.setCell(farthest, board.valueAt(current));
@@ -129,9 +159,9 @@ class Rules {
 	return false;
     }
 
-    private static void deleteMergeInto(Board board, List<Tile> moves, Point next) {
+    private static void deleteMergeInto(Board board, List<ATileMove> moves, Point next) {
 	boolean found = false;
-	for (Tile move : moves)
+	for (ATileMove move : moves)
 	    if (move.getCurLoc().equals(next)) {
 		move.merged();
 		move.delete();
@@ -139,15 +169,15 @@ class Rules {
 		break;
 	    }
 	if (!found) {// tile being merged into wasn't moved earlier, so now add it in and mark as deleted
-	    Tile move = new Tile(next, board.valueAt(next));
+	    ATileMove move = new ATileMove(next, board.valueAt(next));
 	    move.merged();
 	    move.delete();
 	    moves.add(move);
 	}
     }
 
-    private static boolean canMerge(Board board, List<Tile> moves, Point next) {
-	for (Tile move : moves)
+    private static boolean canMerge(Board board, List<ATileMove> moves, Point next) {
+	for (ATileMove move : moves)
 	    if (move.getCurLoc().equals(next) && move.isMerged()) return false;
 	return true;
     }

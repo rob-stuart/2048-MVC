@@ -17,12 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import controller.Controller;
-import controller.Tile;
+import controller.ATileMove;
+import controller.ControllerInterface;
 
 /**
  * A visualization of the game.
- * @author Robert Stuart
  */
 public class BasicGUI extends JFrame implements ViewInterface {
     private static final long serialVersionUID = 4082949622480526528L;
@@ -51,7 +50,7 @@ public class BasicGUI extends JFrame implements ViewInterface {
      * @throws IllegalArgumentException If numTilesX < 4 or numTilesX > 20 or numTilesY < 4 or numTilesY > 20.
      * @throws NullPointerException If controller == null.
      */
-    public BasicGUI(int numTilesX, int numTilesY, Controller controller) throws IllegalArgumentException, NullPointerException {
+    public BasicGUI(int numTilesX, int numTilesY, ControllerInterface controller) throws IllegalArgumentException, NullPointerException {
 	super(gameName);
 	if (numTilesX < MINSIZE || numTilesY < MINSIZE || numTilesX > MAXSIZE || numTilesY > MAXSIZE) throw new IllegalArgumentException();
 	listener = new ViewListener(controller); // can throw NullPointerException if controller == null
@@ -221,13 +220,13 @@ public class BasicGUI extends JFrame implements ViewInterface {
     }
 
     @Override
-    public synchronized void moveTiles(List<Tile> moves) {
+    public synchronized void moveTiles(List<ATileMove> moves) {
 	board.moveTiles(moves);
 	revalidate();
     }
 
     @Override
-    public synchronized void addTiles(List<Tile> newTiles) {
+    public synchronized void addTiles(List<ATileMove> newTiles) {
 	board.addTiles(newTiles);
     }
 
@@ -239,7 +238,7 @@ public class BasicGUI extends JFrame implements ViewInterface {
     @Override
     public synchronized void showLoss() {
 	String[] options = { "Start New Game", "Exit" };
-	int i = JOptionPane.showOptionDialog(null, "You loss", "Game Over!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+	int i = JOptionPane.showOptionDialog(null, "You lose", "Game Over!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 	if (i == 0) { // TODO better way?
 	    newGame.doClick();
 	}

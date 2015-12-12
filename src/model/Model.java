@@ -3,18 +3,16 @@ package model;
 import java.util.List;
 
 import controller.Direction;
-import controller.Tile;
+import controller.ATileMove;
 
 /**
  * Manipulates the state of the board according to the rules of the game as well as keeping track of the score, high score, and checks for victory conditions.
- * 
- * @author Robert Stuart
  */
 public class Model implements ModelInterface {
     private Board board;
 
     @Override
-    public List<Tile> startGame() {
+    public List<ATileMove> startGame() {
 	board = SaverLoader.loadGame();
 	if (board == null) {
 	    board = new Board();
@@ -25,9 +23,9 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public List<Tile> startGame(int width, int height) {
+    public List<ATileMove> startGame(int width, int height) {
 	board = new Board();
-	List<Tile> moves = null;
+	List<ATileMove> moves = null;
 	try {
 	    moves = Rules.startGame(board, width, height);
 	} catch (IllegalArgumentException e) { // if an exception is thrown due to bad width/height given, make the default board
@@ -37,8 +35,8 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public List<Tile> restartGame(int width, int height) {
-	List<Tile> moves = null;
+    public List<ATileMove> restartGame(int width, int height) {
+	List<ATileMove> moves = null;
 	try {
 	    moves = Rules.restartGame(board, width, height);
 	} catch (IllegalArgumentException e) { // if an exception is thrown due to bad width/height given, make the default board
@@ -50,16 +48,16 @@ public class Model implements ModelInterface {
     @Override
     public void endGame() {
 	if (board.isGameOver()) {
-	    SaverLoader.removeSave();
+	    Rules.restartGame(board, board.getWidth(), board.getHeight());
+	    SaverLoader.saveGame(board);
 	} else {
 	    SaverLoader.saveGame(board);
 	}
-
 	board = null;
     }
 
     @Override
-    public List<Tile> makeMove(Direction d) {
+    public List<ATileMove> makeMove(Direction d) {
 	return Rules.makeMove(board, d);
     }
 

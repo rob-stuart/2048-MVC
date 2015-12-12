@@ -21,10 +21,8 @@ import controller.Direction;
 
 /**
  * Listens for certain user actions in the Environment, primarily from the keyboard, then sends those actions to the controller of this game.
- * 
- * @author Robert Stuart
  */
-class ViewListener extends KeyAdapter implements MouseListener, ActionListener, ItemListener, WindowListener {
+public class ViewListener extends KeyAdapter implements MouseListener, ActionListener, ItemListener, WindowListener {
     private ControllerInterface controller;
     private Point drag_start;
     private int nextBoardWidth;
@@ -37,18 +35,16 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 
     /**
      * Constructs this ViewListener and directs it to send all pertinent user input to the controller provided.
-     * 
      * @param controller The controller that this ViewListener will send all pertinent user actions to.
      * @throws NullPointerException If controller == null.
      */
-    protected ViewListener(ControllerInterface controller) throws NullPointerException {
+    public ViewListener(ControllerInterface controller) throws NullPointerException {
 	this.controller = controller;
     }
 
     /**
      * Captures keyPressed events from the environment, interprets the events as movement directions or as a restart command, if possible, then communicates them to
      * the controller.
-     * 
      * @param e The key event captured from the keyboard.
      * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
      */
@@ -65,7 +61,6 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 
     /**
      * Captures mousePressed events from the environment and saves its location on the screen.
-     * 
      * @param e The mousePressed event captured from the mouse.
      * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
      */
@@ -77,7 +72,6 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
     /**
      * Captures mouseReleased events from the environment then communicates the direction moved between the last mousePressed event and this event to the controller,
      * unless the distance between the two events is <= 20 px.
-     * 
      * @param e The mouseReleased event captured from the mouse.
      * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
      */
@@ -99,7 +93,6 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 
     /**
      * Captures ActionEvents and sends their commands to the controller, if valid.
-     * 
      * @param e A captured ActionEvent
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
@@ -111,7 +104,6 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 
     /**
      * Captures itemStateChanged events from JComboBoxes and saves their values until the next restart game event.
-     * 
      * @param e A captured ItemEvent.
      * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
      */
@@ -128,43 +120,30 @@ class ViewListener extends KeyAdapter implements MouseListener, ActionListener, 
 	}
     }
 
+    /**
+     * Captures a windowClosing event and informs the controller to end the game.
+     * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+     */
     @Override
     public void windowClosing(WindowEvent arg0) {
 	controller.endGame();
     }
 
+    /**
+     * Captures a windowClosed event and informs the controller to end the game.
+     * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+     */
     @Override
     public void windowClosed(WindowEvent arg0) {
 	controller.endGame();
     }
 
-    /**
-     * Captures mouseClicked events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
-     * information.
-     * 
-     * @param e The mouseClicked event captured from the mouse.
-     * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
-     */
     @Override
     public void mouseClicked(MouseEvent e) {}
 
-    /**
-     * Captures mouseEntered events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
-     * information.
-     * 
-     * @param e The mouseEntered event captured from the mouse.
-     * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-     */
     @Override
     public void mouseEntered(MouseEvent e) {}
 
-    /**
-     * Captures mouseExited events from the environment; however these events are ignored as mousePressed and mouseReleased combined provide the necessary
-     * information.
-     * 
-     * @param e The mouseExited event captured from the mouse.
-     * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-     */
     @Override
     public void mouseExited(MouseEvent e) {}
 

@@ -8,8 +8,22 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * A static collection of custom paint methods.
+ */
 class CustomPainter {
 
+    /**
+     * Don't allow anyone outside of this class to instantiate a CustomPainter.
+     */
+    private CustomPainter() {}
+
+    /**
+     * Paints the given component with rounded corners with the given radius.
+     * @param comp The component to be painted.
+     * @param g The graphics the component is to be painted with.
+     * @param radius The radius of the corners to be painted.
+     */
     protected static void paintComponentRounded(Component comp, Graphics g, int radius) {
 	Graphics2D g2d = (Graphics2D) g;
 	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

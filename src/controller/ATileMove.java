@@ -3,12 +3,11 @@ package controller;
 import java.awt.Point;
 
 /**
- * Groups information regarding the past and present position and value for this Tile as well as if the Tile was formed from merging Tiles, or if the Tile is to be
+ * Groups information regarding the past and present position and value for a Tile as well as if the Tile was formed from merging Tiles, or if the Tile is to be
  * deleted. Convention assumed: The point information is to be in (x,y) coordinates where (0,0) refers to the top-left cell, while (1,2) would be one cell down and
  * two cells to the right.
- * @author Robert Stuart
  */
-public class Tile {
+public class ATileMove {
     private Point curLoc, prvLoc;
     private int curVal, prvVal;
     private boolean merged, deleted;
@@ -18,7 +17,7 @@ public class Tile {
      * @param loc The location of this Tile.
      * @param val The value of this Tile.
      */
-    public Tile(Point loc, int val) {
+    public ATileMove(Point loc, int val) {
 	curLoc = loc;
 	curVal = val;
 	prvLoc = null;
@@ -116,8 +115,8 @@ public class Tile {
     @Override
     public boolean equals(Object obj) {
 	if (this == obj) return true;
-	if (!(obj instanceof Tile)) return false;
-	Tile that = (Tile) obj;
+	if (!(obj instanceof ATileMove)) return false;
+	ATileMove that = (ATileMove) obj;
 	if (this.curVal != that.curVal) return false;
 	if (!this.curLoc.equals(that.curLoc)) return false;
 	if (this.prvVal != that.prvVal) return false;
